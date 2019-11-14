@@ -1,0 +1,97 @@
+#include <iostream>
+#include <cmath>
+#include <fstream>
+
+using namespace std;
+
+double F(double x, double tab[], int n)
+{
+    double suma = 0;
+    for(int i = 0; i <  n ; i++)
+    {
+        suma = x*suma + tab[i];
+    }
+    return suma;
+}
+
+double Pole(double a, double b, double tab[], double n, double d)
+{
+    double s = (b-a)/d, suma = 0;
+    for(int i = 0; i < d; i++)
+    {
+        suma+= fabs(F(a,tab,n)+F(a+s,tab,n))*0.5*s;
+        a+=s;
+    }
+    return suma;
+}
+
+bool Horner(int x, double tab[], int n)
+{
+    int s = 0;
+    for(int i = 0; i < n; i++)
+    {
+        s = s*x+tab[i];
+    }
+    if(s == 0) return 1;
+    else return 0;
+}
+
+double Newton(double n,double e)
+{
+    double a = n;
+    while(fabs(a*a-n) > e)
+    {
+        a = (a + n/a)/2;
+    }
+    return a;
+}
+
+double Bisekcja (double a, double b, double tab[], double n, double d)
+{
+    double h;
+    for(int i = 0; i < 50; i++)
+    {
+        h = (b+a)/2;
+        if(F(a,tab,n)*F(h,tab,n) <= 0)
+            b = h;
+        else if (F(h,tab,n)*F(b,tab,n) <= 0)
+            a = h;
+        else return -1;
+
+    }
+    return a;
+}
+
+int main()
+{
+    int n = 3;
+    double tab[n] = {0.1, -2, -50};
+
+
+
+
+    //Odczyt pliku
+    ifstream fileIn;
+    fileIn.open("OldFile.txt");
+    //Zapis do pliku
+    ofstream fileOut;
+    fileOut.open("NewFile.txt");
+    fileOut << n;
+
+    //Odczytanie znaku z pliku
+    char c = fileIn.get();
+
+    //Zapis znaku do pliku
+    fileOut.put(c);
+
+    /*Odczytywanie znakow do konca pliku
+    while(fileIn.eof())
+    {
+        ...
+    }*/
+
+    //Zamknięcie plików
+    fileOut.close();
+    fileIn.close();
+    return 0;
+}
