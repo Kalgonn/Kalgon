@@ -4,7 +4,7 @@
 
 using namespace std;
 
-double F(double x, double tab[], int n)
+double WartoscFunkcji(double x, double tab[], int n)
 {
     double suma = 0;
     for(int i = 0; i <  n ; i++)
@@ -14,7 +14,7 @@ double F(double x, double tab[], int n)
     return suma;
 }
 
-double Pole(double a, double b, double tab[], double n, double d)
+double PolePodWykresem(double a, double b, double tab[], double n, double d)
 {
     double s = (b-a)/d, suma = 0;
     for(int i = 0; i < d; i++)
@@ -36,7 +36,7 @@ bool Horner(int x, double tab[], int n)
     else return 0;
 }
 
-double Newton(double n,double e)
+double Pierwiastek(double n,double e)
 {
     double a = n;
     while(fabs(a*a-n) > e)
@@ -68,11 +68,10 @@ int main()
     double tab[n] = {0.1, -2, -50};
 
 
-
-
     //Odczyt pliku
     ifstream fileIn;
     fileIn.open("OldFile.txt");
+    
     //Zapis do pliku
     ofstream fileOut;
     fileOut.open("NewFile.txt");
